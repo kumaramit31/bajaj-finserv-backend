@@ -1,3 +1,5 @@
+require("dotenv").config();  // Load .env file
+
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
@@ -11,10 +13,12 @@ app.use(bodyParser.json());
 app.use(cors());
 
 // MongoDB Connection
-mongoose.connect(process.env.MONGODB_URI || "mongodb+srv://your_mongodb_uri", {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+mongoose.connect(process.env.MONGODB_URI, {
+    serverSelectionTimeoutMS: 5000,
+  })
+  .then(() => console.log("✅ Connected to MongoDB"))
+  .catch((err) => console.error("❌ MongoDB Connection Error:", err));
+  
 
 const userSchema = new mongoose.Schema({
   user_id: String,
