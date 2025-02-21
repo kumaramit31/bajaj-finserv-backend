@@ -11,10 +11,10 @@ const PORT = process.env.PORT || 5000;
 // Middleware
 app.use(bodyParser.json());
 app.use(cors({
-    origin: "*",  // Allow all domains
-    methods: ["GET", "POST"]
+    origin: "*", // Allow all origins (use specific origin like "http://localhost:5173" for security)
+    methods: ["GET", "POST"],
+    allowedHeaders: ["Content-Type"]
   }));
-
 // MongoDB Connection
 mongoose.connect(process.env.MONGODB_URI, {
     serverSelectionTimeoutMS: 5000,
